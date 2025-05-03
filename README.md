@@ -29,9 +29,11 @@ The modular framework of ODT enables flexible fine-tuning for various downstream
 # Installation
 The pretrained models and datasets are hosted on a cloud storage platform. You can download them using the following links:
 
-    Pretrained Models: [Download link for pretrained models]
+    Pretrained Models: https://pan.baidu.com/s/1Eo7iExqAkXwyy40IRNyAtQ?pwd=2e26
 
-    Datasets: [Download link for planarian datasets]
+    Datasets: https://pan.baidu.com/s/1ahePN18BViMPZE25Nt0wrw?pwd=a6jf
+
+    Results: https://pan.baidu.com/s/1W17q7hyiu49k6-CD_i9t6Q?pwd=gqfd
 
 Once downloaded, place the files in the appropriate directories:
 
