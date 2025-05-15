@@ -203,3 +203,100 @@ def model_get(gene_model_path,num_labels):
     spatial_model.load_state_dict(spatial_model_dict)
     print("Successfully loaded pre-trained weights (excluding classifier).")
     return spatial_model
+def score_eval():
+    timepoints = ['0hpa1', '12hpa1', '36hpa1', '3dpa1', '5dpa1', '10dpa1', 'WT']
+    for timepoint in timepoints:
+        print(f"处理 {timepoint}...")
+        target_name = os.path.join("./3D_datasetSplit", f"3Ddataset_timepoint_{timepoint}_cluster.pkl")
+        with open(target_name, 'rb') as file:
+            cell_list = pickle.load(file)
+        pfm_embeddings = np.stack([cell['model_embeddings'][:-1].cpu().numpy() for cell in cell_list])
+        pca_model_low = PCA(n_components=16)
+        pfm_embeddings = pca_model_low.fit_transform(pfm_embeddings)
+        pca_embeddings = np.array([cell['pca_embeddings'][:16] for cell in cell_list])
+        all_positions = [cell['pos2'][:3] for cell in cell_list if 'pos2' in cell]
+        all_positions = np.array(all_positions)
+        # 计算空间紧凑性
+        pfm_clusters = np.array([cell['model_cluster_label'] for cell in cell_list])
+        pca_clusters = np.array([cell['pca_cluster_label'] for cell in cell_list])
+        pfm_score = calinski_harabasz_score(all_positions, pfm_clusters)
+        pca_score = calinski_harabasz_score(all_positions, pca_clusters)
+        with open('./3D_cluster_visualizations/' + timepoint + '_calinski_harabasz_score.txt', 'w') as file:
+            file.write('pfm:' + str(pfm_score) + ' pca:' + str(pca_score))
+        print('calinski_harabasz_score', pfm_score, pca_score)
+        pfm_score = davies_bouldin_score(all_positions, pfm_clusters)
+        pca_score = davies_bouldin_score(all_positions, pca_clusters)
+        with open('./3D_cluster_visualizations/' + timepoint + '_davies_bouldin_score.txt', 'w') as file:
+            file.write('pfm:' + str(pfm_score) + ' pca:' + str(pca_score))
+        print('davies_bouldin_score', pfm_score, pca_score)
+    for timepoint in timepoints:
+        print(f"处理 {timepoint}...")
+        target_name = os.path.join("./3D_datasetSplit", f"3Ddataset_timepoint_{timepoint}_cluster.pkl")
+        with open(target_name, 'rb') as file:
+            cell_list = pickle.load(file)
+        pfm_embeddings = np.stack([cell['model_embeddings'][:-1].cpu().numpy() for cell in cell_list])
+        pca_model_low = PCA(n_components=16)
+        pfm_embeddings = pca_model_low.fit_transform(pfm_embeddings)
+        pca_embeddings = np.array([cell['pca_embeddings'][:16] for cell in cell_list])
+        all_positions = [cell['pos2'][:3] for cell in cell_list if 'pos2' in cell]
+        all_positions = np.array(all_positions)
+        k_values = 5000
+        pfm_score = compute_neighborhood_preservation_score(all_positions, pfm_embeddings, k=k_values)
+        pca_score = compute_neighborhood_preservation_score(all_positions, pca_embeddings, k=k_values)
+        with open('./3D_cluster_visualizations/'+timepoint+'_neighborhood_preservation_scores.txt','w')as file:
+            file.write('pfm:' + str(pfm_score) + ' pca:' + str(pca_score))
+            print('neighborhood_preservation_scores',pfm_score)
+            print('neighborhood_preservation_scores',pca_score)
+def score_png():
+    timepoints = ['0hpa1', '12hpa1', '36hpa1', '3dpa1', '5dpa1', '10dpa1', 'WT']
+    # 读取数据
+    value_types = ['calinski_harabasz_score','davies_bouldin_score','neighborhood_preservation_scores']
+    pfm_score_dict = {'calinski_harabasz_score':[],'davies_bouldin_score':[],'neighborhood_preservation_scores':[]}
+    pca_score_dict = {'calinski_harabasz_score':[],'davies_bouldin_score':[],'neighborhood_preservation_scores':[]}
+    for timepoint in timepoints:
+        for value_type in value_types:
+            with open('./3D_cluster_visualizations/'+timepoint+'_'+value_type+'.txt','r') as file:
+                data = file.read()
+            data = data.strip('\n')
+            data = data.split(' ')
+            pfm_score = float(data[0].split(':')[1])
+            pca_score = float(data[1].split(':')[1])
+            pfm_score_dict[value_type].append(pfm_score)
+            pca_score_dict[value_type].append(pca_score)
+    print(pfm_score_dict)
+    print(pca_score_dict)
+    x = np.arange(len(timepoints))  # 位置
+    width = 0.35  # 柱宽
+    peroids = ['0h', '12h', '36h', '72h', '120h', '240h', 'WT']
+    fig, axes = plt.subplots(1, 3, figsize=(24, 5))
+    # 设置全局字体为 Arial，增大字号
+    rcParams['font.size'] = 18
+    rcParams['axes.titlesize'] = 20
+    rcParams['axes.labelsize'] = 18
+    rcParams['xtick.labelsize'] = 18
+    rcParams['ytick.labelsize'] = 18
+    rcParams['legend.fontsize'] = 18
+    # Calinski-Harabasz
+    axes[0].bar(x - width / 2, pfm_score_dict['calinski_harabasz_score'], width, label='PFM')
+    axes[0].bar(x + width / 2, pca_score_dict['calinski_harabasz_score'], width, label='PCA')
+    axes[0].set_title('Calinski-Harabasz Score')
+    axes[0].set_xticks(x)
+    axes[0].set_xticklabels(peroids)
+    axes[0].legend()
+
+    # Davies-Bouldin
+    axes[2].bar(x - width / 2, pfm_score_dict['davies_bouldin_score'], width, label='PFM')
+    axes[2].bar(x + width / 2, pca_score_dict['davies_bouldin_score'], width, label='PCA')
+    axes[2].set_title('Davies-Bouldin Score')
+    axes[2].set_xticks(x)
+    axes[2].set_xticklabels(peroids)
+
+    # Neighborhood Preservation
+    axes[1].bar(x - width / 2, pfm_score_dict['neighborhood_preservation_scores'], width, label='PFM')
+    axes[1].bar(x + width / 2, pca_score_dict['neighborhood_preservation_scores'], width, label='PCA')
+    axes[1].set_title('Neighborhood Preservation Score')
+    axes[1].set_xticks(x)
+    axes[1].set_xticklabels(peroids)
+
+    plt.tight_layout()
+    plt.savefig('slice.png', dpi=1000)
