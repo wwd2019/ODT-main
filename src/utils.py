@@ -156,7 +156,7 @@ def h5_data_make():
         token_dictionary = pickle.load(fp)
     smesg_all_list = list(token_dictionary.keys())[:-2]
 
-    with open('./data_treated_sets/other_valid_p_cell/p_cell_unannotated.pkl', 'rb') as f:
+    with open('./dataSets/p_cell_unannotated1.pkl', 'rb') as f:
         p_unlabelled_cells = pickle.load(f)
     # 构建基因表达矩阵
     num_cells = len(p_unlabelled_cells)
@@ -182,10 +182,10 @@ def h5_data_make():
     adata.obs_names = cell_ids  # 细胞 ID
 
     # 保存为 h5ad 格式
-    adata.write("./data_treated_sets/other_valid_p_cell/unlabelled_cells.h5ad")
+    adata.write("./dataSets/unlabelled_cells.h5ad")
     cell_gene_counts = (adata.X > 0).sum(axis=1)
     adata = adata[cell_gene_counts >= 50].copy()
-    adata.write("./data_treated_sets/other_valid_p_cell/unlabelled_cells_over50.h5ad")
+    adata.write("./dataSets/unlabelled_cells_over50.h5ad")
     print("转换完成，已保存为 'unlabelled_cells.h5ad'")
     pass
 def model_get(gene_model_path,num_labels):
@@ -240,7 +240,7 @@ def score_eval():
     timepoints = ['0hpa1', '12hpa1', '36hpa1', '3dpa1', '5dpa1', '10dpa1', 'WT']
     for timepoint in timepoints:
         print(f"处理 {timepoint}...")
-        target_name = os.path.join("../result", f"3Ddataset_timepoint_{timepoint}_cluster.pkl")
+        target_name = os.path.join("./result", f"3Ddataset_timepoint_{timepoint}_cluster.pkl")
         with open(target_name, 'rb') as file:
             cell_list = pickle.load(file)
         pfm_embeddings = np.stack([cell['model_embeddings'][:-1].cpu().numpy() for cell in cell_list])
@@ -254,17 +254,17 @@ def score_eval():
         pca_clusters = np.array([cell['pca_cluster_label'] for cell in cell_list])
         pfm_score = calinski_harabasz_score(all_positions, pfm_clusters)
         pca_score = calinski_harabasz_score(all_positions, pca_clusters)
-        with open('../result/' + timepoint + '_calinski_harabasz_score.txt', 'w') as file:
+        with open('./result/' + timepoint + '_calinski_harabasz_score.txt', 'w') as file:
             file.write('pfm:' + str(pfm_score) + ' pca:' + str(pca_score))
         print('calinski_harabasz_score', pfm_score, pca_score)
         pfm_score = davies_bouldin_score(all_positions, pfm_clusters)
         pca_score = davies_bouldin_score(all_positions, pca_clusters)
-        with open('../result/' + timepoint + '_davies_bouldin_score.txt', 'w') as file:
+        with open('./result/' + timepoint + '_davies_bouldin_score.txt', 'w') as file:
             file.write('pfm:' + str(pfm_score) + ' pca:' + str(pca_score))
         print('davies_bouldin_score', pfm_score, pca_score)
     for timepoint in timepoints:
         print(f"处理 {timepoint}...")
-        target_name = os.path.join("./3D_datasetSplit", f"3Ddataset_timepoint_{timepoint}_cluster.pkl")
+        target_name = os.path.join("./result", f"3Ddataset_timepoint_{timepoint}_cluster.pkl")
         with open(target_name, 'rb') as file:
             cell_list = pickle.load(file)
         pfm_embeddings = np.stack([cell['model_embeddings'][:-1].cpu().numpy() for cell in cell_list])
@@ -276,7 +276,7 @@ def score_eval():
         k_values = 5000
         pfm_score = compute_neighborhood_preservation_score(all_positions, pfm_embeddings, k=k_values)
         pca_score = compute_neighborhood_preservation_score(all_positions, pca_embeddings, k=k_values)
-        with open('../result/'+timepoint+'_neighborhood_preservation_scores.txt','w')as file:
+        with open('./result/'+timepoint+'_neighborhood_preservation_scores.txt','w')as file:
             file.write('pfm:' + str(pfm_score) + ' pca:' + str(pca_score))
             print('neighborhood_preservation_scores',pfm_score)
             print('neighborhood_preservation_scores',pca_score)
@@ -288,7 +288,7 @@ def score_png():
     pca_score_dict = {'calinski_harabasz_score':[],'davies_bouldin_score':[],'neighborhood_preservation_scores':[]}
     for timepoint in timepoints:
         for value_type in value_types:
-            with open('../result/'+timepoint+'_'+value_type+'.txt','r') as file:
+            with open('./result/'+timepoint+'_'+value_type+'.txt','r') as file:
                 data = file.read()
             data = data.strip('\n')
             data = data.split(' ')
@@ -332,4 +332,4 @@ def score_png():
     axes[1].set_xticklabels(peroids)
 
     plt.tight_layout()
-    plt.savefig('../result/slice.png', dpi=1000)
+    plt.savefig('./result/slice.png', dpi=1000)
