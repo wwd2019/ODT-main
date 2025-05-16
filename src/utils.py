@@ -3,11 +3,14 @@ import random
 import sys
 
 import math
+from matplotlib import pyplot as plt, rcParams
+from sklearn.decomposition import PCA
+from sklearn.neighbors import NearestNeighbors
 from torch.nn.utils.rnn import pad_sequence
 import anndata
 import datasets
 import torch
-from sklearn.metrics import accuracy_score, f1_score
+from sklearn.metrics import accuracy_score, f1_score, calinski_harabasz_score, davies_bouldin_score
 import scanpy as sc
 import os,re
 import pickle
@@ -203,11 +206,41 @@ def model_get(gene_model_path,num_labels):
     spatial_model.load_state_dict(spatial_model_dict)
     print("Successfully loaded pre-trained weights (excluding classifier).")
     return spatial_model
+
+def compute_neighborhood_preservation_score(spatial_coords, embeddings, k=10):
+    """
+    spatial_coords: numpy array (n_samples, 2) — 空间坐标
+    embeddings: numpy array (n_samples, d) — 嵌入向量
+    k: int — 邻居数量
+
+    return: float — neighborhood preservation score
+    """
+    n_samples = spatial_coords.shape[0]
+
+    # 计算空间坐标下的邻居索引
+    spatial_nn = NearestNeighbors(n_neighbors=k+1).fit(spatial_coords)
+    spatial_neighbors = spatial_nn.kneighbors(return_distance=False)[:, 1:]  # 去掉自己
+
+    # 嵌入空间的邻居索引
+    embed_nn = NearestNeighbors(n_neighbors=k+1).fit(embeddings)
+    embed_neighbors = embed_nn.kneighbors(return_distance=False)[:, 1:]  # 去掉自己
+
+    # 计算每个样本的交集比例
+    scores = []
+    for i in range(n_samples):
+        spatial_set = set(spatial_neighbors[i])
+        embed_set = set(embed_neighbors[i])
+        overlap = len(spatial_set & embed_set)
+        score = overlap / k
+        scores.append(score)
+
+    return np.mean(scores)
+
 def score_eval():
     timepoints = ['0hpa1', '12hpa1', '36hpa1', '3dpa1', '5dpa1', '10dpa1', 'WT']
     for timepoint in timepoints:
         print(f"处理 {timepoint}...")
-        target_name = os.path.join("./3D_datasetSplit", f"3Ddataset_timepoint_{timepoint}_cluster.pkl")
+        target_name = os.path.join("../result", f"3Ddataset_timepoint_{timepoint}_cluster.pkl")
         with open(target_name, 'rb') as file:
             cell_list = pickle.load(file)
         pfm_embeddings = np.stack([cell['model_embeddings'][:-1].cpu().numpy() for cell in cell_list])
@@ -221,12 +254,12 @@ def score_eval():
         pca_clusters = np.array([cell['pca_cluster_label'] for cell in cell_list])
         pfm_score = calinski_harabasz_score(all_positions, pfm_clusters)
         pca_score = calinski_harabasz_score(all_positions, pca_clusters)
-        with open('./3D_cluster_visualizations/' + timepoint + '_calinski_harabasz_score.txt', 'w') as file:
+        with open('../result/' + timepoint + '_calinski_harabasz_score.txt', 'w') as file:
             file.write('pfm:' + str(pfm_score) + ' pca:' + str(pca_score))
         print('calinski_harabasz_score', pfm_score, pca_score)
         pfm_score = davies_bouldin_score(all_positions, pfm_clusters)
         pca_score = davies_bouldin_score(all_positions, pca_clusters)
-        with open('./3D_cluster_visualizations/' + timepoint + '_davies_bouldin_score.txt', 'w') as file:
+        with open('../result/' + timepoint + '_davies_bouldin_score.txt', 'w') as file:
             file.write('pfm:' + str(pfm_score) + ' pca:' + str(pca_score))
         print('davies_bouldin_score', pfm_score, pca_score)
     for timepoint in timepoints:
@@ -243,7 +276,7 @@ def score_eval():
         k_values = 5000
         pfm_score = compute_neighborhood_preservation_score(all_positions, pfm_embeddings, k=k_values)
         pca_score = compute_neighborhood_preservation_score(all_positions, pca_embeddings, k=k_values)
-        with open('./3D_cluster_visualizations/'+timepoint+'_neighborhood_preservation_scores.txt','w')as file:
+        with open('../result/'+timepoint+'_neighborhood_preservation_scores.txt','w')as file:
             file.write('pfm:' + str(pfm_score) + ' pca:' + str(pca_score))
             print('neighborhood_preservation_scores',pfm_score)
             print('neighborhood_preservation_scores',pca_score)
@@ -255,7 +288,7 @@ def score_png():
     pca_score_dict = {'calinski_harabasz_score':[],'davies_bouldin_score':[],'neighborhood_preservation_scores':[]}
     for timepoint in timepoints:
         for value_type in value_types:
-            with open('./3D_cluster_visualizations/'+timepoint+'_'+value_type+'.txt','r') as file:
+            with open('../result/'+timepoint+'_'+value_type+'.txt','r') as file:
                 data = file.read()
             data = data.strip('\n')
             data = data.split(' ')
@@ -299,4 +332,4 @@ def score_png():
     axes[1].set_xticklabels(peroids)
 
     plt.tight_layout()
-    plt.savefig('slice.png', dpi=1000)
+    plt.savefig('../result/slice.png', dpi=1000)
