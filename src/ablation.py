@@ -35,7 +35,7 @@ def compute_metrics(pred):
         'macro_f1': macro_f1
     }
 import datasets
-def geneModelRawCelltype(dataset_path='../dataSets/all_cell.datasets' ,pretrained_path="../models/pretrained_model",output_path='../models/gene_raw2/'):
+def geneModelRawCelltype(dataset_path='./dataSets/all_cell.datasets' ,pretrained_path="./models/pretrained_model",output_path='./models/gene_raw2/'):
     # 基础基因模型 预测细胞种类
     timepoints = ['0h','12h','1.5d','3d','5d','10d','WT']
     celltype_label = {'gut': 0, 'Nb2': 1, 'cathepsin_cells': 2, 'epidermal': 3, 'muscle': 4, 'parenchymal': 5, 'protonephridia': 6, 'pharynx': 7, 'neural': 8}
@@ -115,7 +115,7 @@ def geneModelRawCelltype(dataset_path='../dataSets/all_cell.datasets' ,pretraine
         # train the cell type classifier
         trainer.train()
         trainer.save_model()
-def geneModelAugCelltype(dataset_path='../models/all_cell.datasets',pretrained_path="../models/pretrained_model",output_path='../models/gene_aug/'):
+def geneModelAugCelltype(dataset_path='./models/all_cell.datasets',pretrained_path="./models/pretrained_model",output_path='./models/gene_aug/'):
     timepoints = ['0h', '12h', '1.5d', '3d', '5d', '10d', 'WT']
     celltype_label = {'gut': 0, 'Nb2': 1, 'cathepsin_cells': 2, 'epidermal': 3, 'muscle': 4, 'parenchymal': 5,
                       'protonephridia': 6, 'pharynx': 7, 'neural': 8}
@@ -209,9 +209,9 @@ def geneModelAugCelltype(dataset_path='../models/all_cell.datasets',pretrained_p
         trainer.train()
         trainer.save_model()
     pass
-def SpatialModelRaw(pretrained_path="../models/pretrained_model",output_path='../models/spatial_raw/'):
+def SpatialModelRaw(pretrained_path="./models/pretrained_model",output_path='./models/spatial_raw/'):
     # 基础基因模型 预测细胞种类
-    cell_Dataset = datasets.Dataset.load_from_disk('../dataSets/all_cell.datasets')
+    cell_Dataset = datasets.Dataset.load_from_disk('./dataSets/all_cell.datasets')
     cell_Dataset = cell_Dataset.rename_column('cell_genes', 'input_ids')
     timepoints = list(dict(Counter(cell_Dataset['timepoint'])).keys())
     celltype_label  = {'gut': 0, 'Nb2': 1, 'cathepsin_cells': 2, 'epidermal': 3, 'muscle': 4, 'parenchymal': 5, 'protonephridia': 6, 'pharynx': 7, 'neural': 8}
@@ -481,8 +481,8 @@ def SpatialModelRaw(pretrained_path="../models/pretrained_model",output_path='..
                 file.write('\n')
         print(test_accuracys)
     pass
-def SpatialModelAug(pretrained_path="../models/pretrained_model",output_path='../models/spatial_aug/'):
-    cell_Dataset = datasets.Dataset.load_from_disk('../dataSets/all_cell.datasets')
+def SpatialModelAug(pretrained_path="./models/pretrained_model",output_path='./models/spatial_aug/'):
+    cell_Dataset = datasets.Dataset.load_from_disk('./dataSets/all_cell.datasets')
     cell_Dataset = cell_Dataset.rename_column('cell_genes', 'input_ids')
     timepoints = list(dict(Counter(cell_Dataset['timepoint'])).keys())
     celltype_label  = {'gut': 0, 'Nb2': 1, 'cathepsin_cells': 2, 'epidermal': 3, 'muscle': 4, 'parenchymal': 5, 'protonephridia': 6, 'pharynx': 7, 'neural': 8}
@@ -834,11 +834,11 @@ def getfolder2(target_path, timepoint):
     else:
         print("No checkpoints found.")
 
-def ModelIntegration(model_type = 'Bert',pretrained_path= "../models/pretrained_model",output_path='../models/time_spatial/',aug=True):
+def ModelIntegration(model_type = 'Bert',pretrained_path= "./models/pretrained_model",output_path='./models/time_spatial/',aug=True):
     # 完整的训练过程，先用时期标签训练，在预测标签分类
     # 先进行数据集划分防止数据泄露
     # 为保证数据分布均衡，分时期划分0.8为训练集，0.2为测试集
-    cell_Dataset = datasets.Dataset.load_from_disk('../dataSets/all_cell.datasets')
+    cell_Dataset = datasets.Dataset.load_from_disk('./dataSets/all_cell.datasets')
     cell_Dataset = cell_Dataset.rename_column('cell_genes', 'input_ids')
     timepoints = list(dict(Counter(cell_Dataset['timepoint'])).keys())
     celltype_label = {'gut': 0, 'Nb2': 1, 'cathepsin_cells': 2, 'epidermal': 3, 'muscle': 4, 'parenchymal': 5,

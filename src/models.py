@@ -469,7 +469,7 @@ class Graph_predicate():
                         'model_state_dict': self.mlpModel.state_dict(),
                         'optimizer_state_dict': optimizer.state_dict(),
                         'loss': loss,
-                    }, f'./MLP_model2/mlp_model_checkpoint_epoch_{epoch + 1}.pth')
+                    }, f'./models/MLP_model2/mlp_model_checkpoint_epoch_{epoch + 1}.pth')
 
                 if (epoch + 1) % 500 == 0: # 每500个输出检查一下
 
