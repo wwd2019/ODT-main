@@ -29,9 +29,11 @@ The modular framework of ODT enables flexible fine-tuning for various downstream
 # Installation
 The pretrained models and datasets are hosted on a cloud storage platform. You can download them using the following links:
 
-    Pretrained Models: 
+    Pretrained Models:  https://pan.baidu.com/s/1I68mu_QYcEx8rk4RUsFtKA?pwd=epsb
 
-    Datasets: 
+    Datasets: https://pan.baidu.com/s/1eb1dtXp1q69d4lt-GJwCew?pwd=xs3r
+
+    datasets_3D: https://db.cngb.org/stomics/prista4d
 
 Once downloaded, place the files in the appropriate directories:
 
