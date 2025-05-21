@@ -47,7 +47,7 @@ Once downloaded, place the files in the appropriate directories:
 
 Note: Ensure that the data files are unzipped and placed correctly for the code to access them.
 ```bash
-git clone https://github.com/yourusername/ODT-main.git
+git clone https://github.com/wwd2019/ODT-main.git
 cd ODT-main
 ```
 # quick start
