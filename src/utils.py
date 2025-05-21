@@ -156,7 +156,7 @@ def h5_data_make():
         token_dictionary = pickle.load(fp)
     smesg_all_list = list(token_dictionary.keys())[:-2]
 
-    with open('./dataSets/p_cell_unannotated1.pkl', 'rb') as f:
+    with open('./dataSets/p_cell_unannotated.pkl', 'rb') as f:
         p_unlabelled_cells = pickle.load(f)
     # 构建基因表达矩阵
     num_cells = len(p_unlabelled_cells)
