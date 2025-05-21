@@ -43,6 +43,8 @@ Once downloaded, place the files in the appropriate directories:
 
     Place the datasets in the ./dataSets/ directory.
 
+    Place the result in the ./result/ directory.
+
 Note: Ensure that the data files are unzipped and placed correctly for the code to access them.
 ```bash
 git clone https://github.com/yourusername/ODT-main.git
