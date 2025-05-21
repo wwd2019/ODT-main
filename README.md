@@ -33,7 +33,9 @@ The pretrained models and datasets are hosted on a cloud storage platform. You c
 
     Datasets: https://pan.baidu.com/s/1eb1dtXp1q69d4lt-GJwCew?pwd=xs3r
 
-    datasets_3D: https://db.cngb.org/stomics/prista4d
+    Result: https://pan.baidu.com/s/11A6rxvR3Oljdd1m80nmIIQ?pwd=k81h
+
+    Datasets_3D: https://db.cngb.org/stomics/prista4d
 
 Once downloaded, place the files in the appropriate directories:
 
