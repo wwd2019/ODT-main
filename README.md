@@ -4,7 +4,7 @@ Organismal Digital Twin (ODT) is a digital twin framework designed to model and 
 # Model Description
 The Planarian Foundation Model (PFM) is a pretrained transformer model developed to understand gene expression dynamics in planarian regeneration. Due to the limited size and quality of available planarian data, PFM leverages knowledge transfer from the human-trained Geneformer model, which was pretrained on 3.6 million single-cell profiles.
 
-PFM adapts Geneformer by replacing human gene tokens with planarian-specific tokens and retraining on over 500,000 planarian cells in a self-supervised manner. This enables the model to learn gene-gene relationships and molecular patterns specific to planarians, while benefiting from the structure and knowledge learned from human data.
+PFM adapts Geneformer by replacing human gene tokens with planarian tokens and retraining on over 500,000 planarian cells in a self-supervised manner. This enables the model to learn gene-gene relationships and molecular patterns specific to planarians, while benefiting from the structure and knowledge learned from human data.
 
 To make the model regeneration-aware, we fine-tuned it using over 130,000 annotated planarian cells covering all major regeneration stages. The model demonstrated strong performance on regeneration phase classification tasks, even with limited labels.
 
