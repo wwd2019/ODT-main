@@ -1,5 +1,5 @@
 # ODT
-Organismal Digital Twin (ODT) is a digital twin framework designed to model and simulate the regeneration process of planarians (flatworms) at the cellular and molecular levels. Planarians are known for their remarkable regenerative abilities, and ODT seeks to provide a computational platform to understand, analyze, and predict these biological processes.
+Organismal Digital Twin (ODT) is a digital twin framework designed to model planarian (flatworm) regeneration at the cellular level and simulate it at the organismal scale. Known for their extraordinary regenerative abilities, planarians are the focus of ODT, which aims to provide a computational platform for understanding, systematically analyzing, and accurately predicting these biological processes.
 
 # Model Description
 The Planarian Foundation Model (PFM) is a pretrained transformer model developed to understand gene expression dynamics in planarian regeneration. Due to the limited size and quality of available planarian data, PFM leverages knowledge transfer from the human-trained Geneformer model, which was pretrained on 3.6 million single-cell profiles.
