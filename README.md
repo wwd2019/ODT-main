@@ -59,4 +59,4 @@ cd ODT-main
 # quick start
 You can quickly start training the Planarian Foundation Model (PFM) using the main.py script, which allows for easy initiation of the training process with the default settings.
 
-Alternatively, you can refer to the example directory for more details and advanced use cases.
+For advanced configurations, check the example directory. Due to memory constraints, we recommend running the example code as standalone Python scripts instead of using Jupyter Notebook.
