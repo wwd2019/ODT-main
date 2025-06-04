@@ -25,17 +25,12 @@ ODT supports the reconstruction of three-dimensional structures from slice-level
 
 🧩 Flexible Model Extension
 The modular framework of ODT enables flexible fine-tuning for various downstream tasks such as cell type classification or regeneration stage prediction. This makes ODT adaptable for a wide range of applications in regeneration biology and stem cell research.
-The project website is available at: http://62.234.193.59:8080/.
-### 📊 Model Results
 
-**• Calinski-Harabasz Score**  
-Evaluates the compactness and separation of the embeddings.  
-![Calinski-Harabasz Score](UMAP_results/CH.png)
+🔗 Project Website:
+The project is available online at http://62.234.193.59:8080.
 
-**• Davies-Bouldin Score**  
-Measures cluster similarity; lower is better.  
-![Davies-Bouldin Score](UMAP_results/DB.png)
-
+📁 Results:
+All results are saved in the ./result directory. UMAP visualizations are located in the UMAP_results folder.
 
 # Installation
 The pretrained models and datasets are hosted on a cloud storage platform. You can download them using the following links:
