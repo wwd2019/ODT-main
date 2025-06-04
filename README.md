@@ -30,11 +30,11 @@ The project website is available at: http://62.234.193.59:8080/.
 
 **• Calinski-Harabasz Score**  
 Evaluates the compactness and separation of the embeddings.  
-![Calinski-Harabasz Score](Umap/CH.png)
+![Calinski-Harabasz Score](UMAP_results/CH.png)
 
 **• Davies-Bouldin Score**  
 Measures cluster similarity; lower is better.  
-![Davies-Bouldin Score](Umap/DB.png)
+![Davies-Bouldin Score](UMAP_results/DB.png)
 
 
 # Installation
