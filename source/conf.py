@@ -18,7 +18,7 @@ extensions = ['nbsphinx']
 
 templates_path = ['_templates']
 exclude_patterns = []
-
+nbsphinx_allow_errors = True
 
 
 # -- Options for HTML output -------------------------------------------------
