@@ -16,11 +16,3 @@ Welcome to ODT-main's documentation!
    Tutorious 4 Gene Regulatory Network Construction and Visualization
    Tutorious 5 SquiDiff Enables Virtual Section Reconstruction of Planarians
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
