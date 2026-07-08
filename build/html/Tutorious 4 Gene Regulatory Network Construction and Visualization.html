@@ -1,0 +1,386 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gene Regulatory Network Inference via MLP-Based Edge Prediction &mdash; ODT-main 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=e031e9a9"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SquiDiff · Virtual Section Reconstruction" href="Tutorious%205%20SquiDiff%20Enables%20Virtual%20Section%20Reconstruction%20of%20Planarians.html" />
+    <link rel="prev" title="PFM-T: Cross-Species BLAST Analysis and Phylogenetic Profiling of Regeneration Genes" href="Tutorious%203%20ODT%20Enables%20Regeneration%20Gene%20Discovery.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ODT-main
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Tutorious%201%20ODT%20Construction%20A%20Planarian%20Foundation%20Model%20Integrating%20Spatiotemporal%20Information%20%28PFM-ST%29.html">PFM-ST: Model Construction and Interactive Demonstration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorious%202%20PFM-ST%20Enables%203D%20Digitization%20of%20Planarians.html">Step: Load 3D dataset files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorious%202%20PFM-ST%20Enables%203D%20Digitization%20of%20Planarians.html#Model-Loading">Model Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorious%202%20PFM-ST%20Enables%203D%20Digitization%20of%20Planarians.html#Ensemble-Cell-Type-Prediction">Ensemble Cell-Type Prediction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorious%202%20PFM-ST%20Enables%203D%20Digitization%20of%20Planarians.html#3D-Visualization-Utilities">3D Visualization Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorious%202%20PFM-ST%20Enables%203D%20Digitization%20of%20Planarians.html#Execution">Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorious%203%20ODT%20Enables%20Regeneration%20Gene%20Discovery.html">PFM-T: Cross-Species BLAST Analysis and Phylogenetic Profiling of Regeneration Genes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Gene Regulatory Network Inference via MLP-Based Edge Prediction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Training-Data-Preparation">Training Data Preparation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Exhaustive-Pairwise-Regulatory-Prediction">Exhaustive Pairwise Regulatory Prediction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Execution">Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Network-Visualisation">Network Visualisation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorious%205%20SquiDiff%20Enables%20Virtual%20Section%20Reconstruction%20of%20Planarians.html">SquiDiff  ·  Virtual Section Reconstruction</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ODT-main</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Gene Regulatory Network Inference via MLP-Based Edge Prediction</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Tutorious 4 Gene Regulatory Network Construction and Visualization.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Gene-Regulatory-Network-Inference-via-MLP-Based-Edge-Prediction">
+<h1>Gene Regulatory Network Inference via MLP-Based Edge Prediction<a class="headerlink" href="#Gene-Regulatory-Network-Inference-via-MLP-Based-Edge-Prediction" title="Permalink to this heading">¶</a></h1>
+<p>This notebook constructs a genome-scale gene regulatory network (GRN) for regenerating planarians by predicting pairwise regulatory relationships from learned gene embeddings. The approach couples two complementary data modalities — PFM-T-derived gene expression embeddings capturing transcriptional state, and perturbation response signatures encoding functional disruption phenotypes — and feeds their concatenation into a multi-layer perceptron trained to classify regulatory edges into seven
+ordered categories spanning strong inhibition to strong activation.</p>
+<p>The inference pipeline proceeds in three stages: <strong>(1)</strong> construction of a labelled training set from known regulatory edges, <strong>(2)</strong> exhaustive pairwise scoring of all gene combinations using a pre-trained MLP classifier, and <strong>(3)</strong> filtering and export of high-confidence regulatory predictions for downstream network visualisation and analysis.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span> <span class="nn">xlsxwriter</span> <span class="kn">import</span> <span class="n">Workbook</span>
+<span class="n">CODE_PATH</span> <span class="o">=</span> <span class="s2">&quot;/home/wwd/codebox/ODT-main/&quot;</span>
+<span class="k">if</span> <span class="n">CODE_PATH</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">src.funcs</span> <span class="kn">import</span> <span class="n">edge_class</span>
+<span class="kn">from</span> <span class="nn">src.models</span> <span class="kn">import</span> <span class="n">Graph_predicate</span>
+</pre></div>
+</div>
+</div>
+<section id="Training-Data-Preparation">
+<h2>Training Data Preparation<a class="headerlink" href="#Training-Data-Preparation" title="Permalink to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">edge_target()</span></code> reads a curated set of known regulatory edges from a CSV file and assigns each edge to one of seven ordered regulatory classes via <code class="docutils literal notranslate"><span class="pre">edge_class()</span></code>, which bins the continuous edge weight into the following schema: strong inhibition (0), moderate inhibition (1), weak inhibition (2), neutral (3), weak activation (4), moderate activation (5), and strong activation (6). This discretisation transforms a regression problem into a seven-way ordinal classification task, which is
+substantially more tractable for the downstream MLP.</p>
+<p><code class="docutils literal notranslate"><span class="pre">makexlsx()</span></code> is a utility that exports the top 200 source and target regulators per gene into a formatted spreadsheet for manual inspection.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">edge_target</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load known regulatory edges from CSV and discretise edge weights into</span>
+<span class="sd">    seven ordinal regulatory classes via ``edge_class()``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">edge_pure</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">edges_csv</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;GRN_edges&#39;</span><span class="p">,</span> <span class="s1">&#39;edges.csv&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">edges_csv</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">edge</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="n">edge_pure</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">edge_class</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">3</span><span class="p">]))])</span>
+    <span class="k">return</span> <span class="n">edge_pure</span>
+
+
+<span class="k">def</span> <span class="nf">makexlsx</span><span class="p">(</span><span class="n">target_path</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Export the top 200 source and target regulators per gene to an Excel</span>
+<span class="sd">    workbook for manual inspection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;gene_all&#39;</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">([</span>
+        <span class="s1">&#39;Regenerative_genes&#39;</span><span class="p">,</span> <span class="s1">&#39;source_positive_gene&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;source_negative_gene&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="s1">&#39;target_positive_gene&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="s1">&#39;target_negative_gene&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span>
+    <span class="p">])</span>
+    <span class="k">for</span> <span class="n">R_gene</span> <span class="ow">in</span> <span class="n">data_dict</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>
+            <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">([</span>
+                <span class="n">R_gene</span><span class="p">,</span>
+                <span class="n">data_dict</span><span class="p">[</span><span class="n">R_gene</span><span class="p">][</span><span class="s1">&#39;source_positive&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">data_dict</span><span class="p">[</span><span class="n">R_gene</span><span class="p">][</span><span class="s1">&#39;source_positive&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                <span class="n">data_dict</span><span class="p">[</span><span class="n">R_gene</span><span class="p">][</span><span class="s1">&#39;source_negative&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">data_dict</span><span class="p">[</span><span class="n">R_gene</span><span class="p">][</span><span class="s1">&#39;source_negative&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                <span class="n">data_dict</span><span class="p">[</span><span class="n">R_gene</span><span class="p">][</span><span class="s1">&#39;target_positive&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">data_dict</span><span class="p">[</span><span class="n">R_gene</span><span class="p">][</span><span class="s1">&#39;target_positive&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                <span class="n">data_dict</span><span class="p">[</span><span class="n">R_gene</span><span class="p">][</span><span class="s1">&#39;target_negative&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">data_dict</span><span class="p">[</span><span class="n">R_gene</span><span class="p">][</span><span class="s1">&#39;target_negative&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">])</span>
+    <span class="n">wb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">target_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Exhaustive-Pairwise-Regulatory-Prediction">
+<h2>Exhaustive Pairwise Regulatory Prediction<a class="headerlink" href="#Exhaustive-Pairwise-Regulatory-Prediction" title="Permalink to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">getRegulateAll()</span></code> is the core inference engine. It first instantiates a <code class="docutils literal notranslate"><span class="pre">Graph_predicate</span></code> object, which loads two data structures for every gene in the genome: a PFM-T-derived expression embedding and a perturbation response vector summarising the transcriptional consequences of knocking down that gene. For each ordered gene pair (A, B), the concatenated embedding <code class="docutils literal notranslate"><span class="pre">[embedding_A</span> <span class="pre">||</span> <span class="pre">embedding_B]</span></code> is fed into a pre-trained three-hidden-layer MLP that outputs a probability distribution over
+the seven regulatory classes.</p>
+<p>Because the number of ordered gene pairs scales quadratically with the genome size — approximately 8.6 million pairs for the ~4,150 genes in the planarian embedding set — the function employs batched GPU inference with incremental disk serialisation. Every 100,000 predictions, results are flushed to a CSV partition, preventing memory exhaustion and enabling resumption from the last completed batch if the process is interrupted.</p>
+<p>Only edges whose predicted class deviates from the neutral midpoint (class 3) by at least two categories are retained, corresponding to a stringent filter for putative regulatory relationships with clear directional signal.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">getRegulateAll</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform exhaustive pairwise regulatory prediction across all genes</span>
+<span class="sd">    using a pre-trained MLP classifier, with incremental disk serialisation</span>
+<span class="sd">    every 100,000 predictions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">edge_predicate</span> <span class="o">=</span> <span class="n">edge_target</span><span class="p">()</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda:9&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Instantiate the gene embedding and perturbation data container.</span>
+    <span class="c1"># gene_tensor_path = os.path.join(CODE_PATH, &#39;results&#39;, &#39;Embeddings&#39;, &#39;gene_embeddings.pkl&#39;)</span>
+    <span class="n">gene_disturb_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Embeddings&#39;</span><span class="p">,</span> <span class="s1">&#39;planaria_disturb.pkl&#39;</span><span class="p">)</span>
+    <span class="n">gene_tensor_path</span> <span class="o">=</span> <span class="s1">&#39;/home/wwd/codebox/ODT-main/results/Embeddings/gene_ebeddings_aug2.pkl&#39;</span>
+    <span class="n">Graph_predicate_example</span> <span class="o">=</span> <span class="n">Graph_predicate</span><span class="p">(</span>
+        <span class="n">gene_tensor_path</span><span class="o">=</span><span class="n">gene_tensor_path</span><span class="p">,</span>
+        <span class="n">gene_disturb_path</span><span class="o">=</span><span class="n">gene_disturb_path</span><span class="p">,</span>
+        <span class="n">target_edges</span><span class="o">=</span><span class="n">edge_predicate</span><span class="p">,</span>
+        <span class="n">device</span><span class="o">=</span><span class="n">device</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Load raw gene tensors (concatenation of embedding and perturbation vector).</span>
+    <span class="n">tensor_model</span> <span class="o">=</span> <span class="n">Graph_predicate_example</span><span class="o">.</span><span class="n">get_Tensor</span><span class="p">()</span>
+    <span class="n">model_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;input_size&#39;</span><span class="p">:</span> <span class="mi">548</span><span class="p">,</span> <span class="s1">&#39;num_classes&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="s1">&#39;hidden_sizes&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">640</span><span class="p">,</span> <span class="mi">1280</span><span class="p">,</span> <span class="mi">640</span><span class="p">],</span>
+        <span class="s1">&#39;num_epochs&#39;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span> <span class="s1">&#39;dropout&#39;</span><span class="p">:</span> <span class="mf">0.3</span>
+    <span class="p">}</span>
+    <span class="n">tensors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tensor_model</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">model_dict</span><span class="p">[</span><span class="s1">&#39;input_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tensors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Model input size: </span><span class="si">{</span><span class="n">model_dict</span><span class="p">[</span><span class="s2">&quot;input_size&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Load the pre-trained MLP checkpoint.</span>
+    <span class="n">mlp_model_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span><span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;models&#39;</span><span class="p">,</span> <span class="s1">&#39;MLP_model2&#39;</span><span class="p">,</span> <span class="s1">&#39;mlp_model_checkpoint_epoch_1000.pth&#39;</span><span class="p">)</span>
+    <span class="n">Graph_predicate_example</span><span class="o">.</span><span class="n">loadMLPmodel</span><span class="p">(</span><span class="n">mlp_model_path</span><span class="p">,</span> <span class="n">model_dict</span><span class="p">)</span>
+    <span class="n">Graph_predicate_example</span><span class="o">.</span><span class="n">mlpModel</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+    <span class="n">all_genes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">Graph_predicate_example</span><span class="o">.</span><span class="n">gene_model_tensors</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">gene_pairs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">all_genes</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">total_pairs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">gene_pairs</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total gene pairs to score: </span><span class="si">{</span><span class="n">total_pairs</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">12</span>
+    <span class="n">save_interval</span> <span class="o">=</span> <span class="mi">100_000</span>
+    <span class="n">batch_results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">save_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total_pairs</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">),</span> <span class="n">total</span><span class="o">=</span><span class="n">total_pairs</span> <span class="o">//</span> <span class="n">batch_size</span><span class="p">):</span>
+            <span class="n">batch_pairs</span> <span class="o">=</span> <span class="n">gene_pairs</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">batch_size</span><span class="p">]</span>
+            <span class="n">source_tensors</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">gene1</span><span class="p">,</span> <span class="n">gene2</span> <span class="ow">in</span> <span class="n">batch_pairs</span><span class="p">:</span>
+                <span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span>
+                    <span class="n">Graph_predicate_example</span><span class="o">.</span><span class="n">gene_model_tensors</span><span class="p">[</span><span class="n">gene1</span><span class="p">],</span>
+                    <span class="n">Graph_predicate_example</span><span class="o">.</span><span class="n">gene_model_tensors</span><span class="p">[</span><span class="n">gene2</span><span class="p">]</span>
+                <span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">source_tensors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
+
+            <span class="n">source_tensors</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">source_tensors</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+            <span class="c1"># Z-score standardise per batch.</span>
+            <span class="n">mean</span> <span class="o">=</span> <span class="n">source_tensors</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">std</span> <span class="o">=</span> <span class="n">source_tensors</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">inputs_standardized</span> <span class="o">=</span> <span class="p">(</span><span class="n">source_tensors</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">std</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)</span>
+
+            <span class="n">target_tensors</span> <span class="o">=</span> <span class="n">Graph_predicate_example</span><span class="o">.</span><span class="n">model_prdicate</span><span class="p">(</span><span class="s1">&#39;MLP_model&#39;</span><span class="p">,</span> <span class="n">inputs_standardized</span><span class="p">)</span>
+            <span class="n">outs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">target_tensors</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+            <span class="c1"># Retain only edges with clear regulatory signal (|class - 3| &gt;= 2).</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">gene1</span><span class="p">,</span> <span class="n">gene2</span><span class="p">),</span> <span class="n">out</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">batch_pairs</span><span class="p">,</span> <span class="n">outs</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">out</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">batch_results</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">gene1</span><span class="p">,</span> <span class="n">gene2</span><span class="p">,</span> <span class="n">out</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_results</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">save_interval</span><span class="p">:</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">batch_results</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Gene1&#39;</span><span class="p">,</span> <span class="s1">&#39;Gene2&#39;</span><span class="p">,</span> <span class="s1">&#39;Score&#39;</span><span class="p">])</span>
+                <span class="n">out_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;GRN_edges&#39;</span><span class="p">,</span> <span class="s1">&#39;link_result&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;gene_link_part_</span><span class="si">{</span><span class="n">save_count</span><span class="si">}</span><span class="s1">.csv&#39;</span><span class="p">)</span>
+                <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">save_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">batch_results</span> <span class="o">=</span> <span class="p">[]</span>
+
+                <span class="c1"># print(f&#39;Partition {save_count} saved&#39;)</span>
+
+    <span class="c1"># Flush remaining predictions.</span>
+    <span class="k">if</span> <span class="n">batch_results</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">batch_results</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Gene1&#39;</span><span class="p">,</span> <span class="s1">&#39;Gene2&#39;</span><span class="p">,</span> <span class="s1">&#39;Score&#39;</span><span class="p">])</span>
+        <span class="n">out_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;GRN_edges&#39;</span><span class="p">,</span> <span class="s1">&#39;link_result&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;gene_link_part_</span><span class="si">{</span><span class="n">save_count</span><span class="si">}</span><span class="s1">.csv&#39;</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Final partition </span><span class="si">{</span><span class="n">save_count</span><span class="si">}</span><span class="s1"> saved&#39;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exhaustive pairwise prediction complete.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Execution">
+<h2>Execution<a class="headerlink" href="#Execution" title="Permalink to this heading">¶</a></h2>
+<p>The following cell launches the full pairwise inference pipeline. Given approximately 8.6 million gene pairs and a batch size of 12 on a single GPU, a complete run is expected to require several hours. The incremental serialisation strategy ensures that partial results are preserved even if the kernel is interrupted, and the pipeline can be safely resumed by restarting the cell — already-processed pairs will simply be re-scored and overwrite their corresponding partition files.</p>
+<p>For rapid prototyping, consider restricting <code class="docutils literal notranslate"><span class="pre">all_genes</span></code> to a subset of candidate regeneration-associated genes before generating the combinatorial pairs.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">getRegulateAll</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Model input size: 548
+MLPmodel load success
+Total gene pairs to score: 103,054,546
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+8587879it [3:51:08, 619.23it/s]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Final partition 274 saved
+Exhaustive pairwise prediction complete.
+</pre></div></div>
+</div>
+</section>
+<section id="Network-Visualisation">
+<h2>Network Visualisation<a class="headerlink" href="#Network-Visualisation" title="Permalink to this heading">¶</a></h2>
+<p>The CSV partitions produced by <code class="docutils literal notranslate"><span class="pre">getRegulateAll()</span></code> can be concatenated and loaded into network analysis tools such as Cytoscape or NetworkX for visualisation. Each row encodes a directed regulatory edge (source gene, target gene, regulatory class), where the regulatory class maps to an ordinal scale from strong inhibition (0) to strong activation (6). Filtering by edge weight stringency and intersecting with known regeneration-associated gene sets yields a high-confidence sub-network amenable
+to biological interpretation and experimental validation.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Concatenate all gene link partitions into a single edge table for visualisation.</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+
+<span class="n">link_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;GRN_edges&#39;</span><span class="p">,</span> <span class="s1">&#39;link_result&#39;</span><span class="p">)</span>
+<span class="n">all_files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">link_dir</span><span class="p">,</span> <span class="s1">&#39;gene_link_part_*.csv&#39;</span><span class="p">)))</span>
+
+<span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">all_files</span><span class="p">:</span>
+    <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+<span class="n">full_network</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">full_network</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">link_dir</span><span class="p">,</span> <span class="s1">&#39;gene_link_all.csv&#39;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Consolidated </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_files</span><span class="p">)</span><span class="si">}</span><span class="s1"> partitions into gene_link_all.csv&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total regulatory edges: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">full_network</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">adjusted_labels</span> <span class="o">=</span> <span class="n">full_network</span><span class="p">[</span><span class="s2">&quot;Score&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">3</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Edge class distribution:</span><span class="se">\n</span><span class="si">{</span><span class="n">adjusted_labels</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Consolidated 275 partitions into gene_link_all.csv
+Total regulatory edges: 27,409,749
+Edge class distribution:
+Score
+-3     2530270
+-2     4159295
+ 2    15528231
+ 3     5191953
+Name: count, dtype: int64
+</pre></div></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Tutorious%203%20ODT%20Enables%20Regeneration%20Gene%20Discovery.html" class="btn btn-neutral float-left" title="PFM-T: Cross-Species BLAST Analysis and Phylogenetic Profiling of Regeneration Genes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Tutorious%205%20SquiDiff%20Enables%20Virtual%20Section%20Reconstruction%20of%20Planarians.html" class="btn btn-neutral float-right" title="SquiDiff · Virtual Section Reconstruction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Wendi Wang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

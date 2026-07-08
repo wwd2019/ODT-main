@@ -1,0 +1,739 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PFM-T: Cross-Species BLAST Analysis and Phylogenetic Profiling of Regeneration Genes &mdash; ODT-main 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=e031e9a9"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Gene Regulatory Network Inference via MLP-Based Edge Prediction" href="Tutorious%204%20Gene%20Regulatory%20Network%20Construction%20and%20Visualization.html" />
+    <link rel="prev" title="Step: Load 3D dataset files" href="Tutorious%202%20PFM-ST%20Enables%203D%20Digitization%20of%20Planarians.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ODT-main
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Tutorious%201%20ODT%20Construction%20A%20Planarian%20Foundation%20Model%20Integrating%20Spatiotemporal%20Information%20%28PFM-ST%29.html">PFM-ST: Model Construction and Interactive Demonstration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorious%202%20PFM-ST%20Enables%203D%20Digitization%20of%20Planarians.html">Step: Load 3D dataset files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorious%202%20PFM-ST%20Enables%203D%20Digitization%20of%20Planarians.html#Model-Loading">Model Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorious%202%20PFM-ST%20Enables%203D%20Digitization%20of%20Planarians.html#Ensemble-Cell-Type-Prediction">Ensemble Cell-Type Prediction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorious%202%20PFM-ST%20Enables%203D%20Digitization%20of%20Planarians.html#3D-Visualization-Utilities">3D Visualization Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorious%202%20PFM-ST%20Enables%203D%20Digitization%20of%20Planarians.html#Execution">Execution</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PFM-T: Cross-Species BLAST Analysis and Phylogenetic Profiling of Regeneration Genes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Gene-Sequence-Extraction">Gene Sequence Extraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#BLAST-Alignment-Parsing">BLAST Alignment Parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Protein-Sequence-Retrieval-and-GenBank-Export">Protein Sequence Retrieval and GenBank Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Species-Identification-and-Taxonomic-Classification">Species Identification and Taxonomic Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Phylogenetic-Tree-and-Cross-Species-Visualisation">Phylogenetic Tree and Cross-Species Visualisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Execution">Execution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorious%204%20Gene%20Regulatory%20Network%20Construction%20and%20Visualization.html">Gene Regulatory Network Inference via MLP-Based Edge Prediction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorious%205%20SquiDiff%20Enables%20Virtual%20Section%20Reconstruction%20of%20Planarians.html">SquiDiff  ·  Virtual Section Reconstruction</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ODT-main</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">PFM-T: Cross-Species BLAST Analysis and Phylogenetic Profiling of Regeneration Genes</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Tutorious 3 ODT Enables Regeneration Gene Discovery.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="PFM-T:-Cross-Species-BLAST-Analysis-and-Phylogenetic-Profiling-of-Regeneration-Genes">
+<h1>PFM-T: Cross-Species BLAST Analysis and Phylogenetic Profiling of Regeneration Genes<a class="headerlink" href="#PFM-T:-Cross-Species-BLAST-Analysis-and-Phylogenetic-Profiling-of-Regeneration-Genes" title="Permalink to this heading">¶</a></h1>
+<p>This notebook performs an integrative cross-species analysis of planarian regeneration-associated genes identified by the PFM-T model. Candidate genes are first extracted from the planarian genome and queried against the NCBI protein database via BLAST. The resulting homologues are then mapped to their source organisms, assigned to taxonomic groups, and visualised through phylogenetic trees, box plots of sequence identity, and a multi-entity knowledge graph linking genes, proteins, species, and
+taxonomic clades.</p>
+<p>The workflow proceeds through four stages: <strong>(1)</strong> gene sequence extraction from the reference genome, <strong>(2)</strong> BLAST alignment parsing and filtering, <strong>(3)</strong> taxonomic classification and phylogenetic tree construction, and <strong>(4)</strong> integrative visualisation and knowledge graph assembly.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span><span class="o">,</span> <span class="nn">random</span><span class="o">,</span> <span class="nn">colorsys</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">time</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">csv</span><span class="o">,</span> <span class="nn">io</span><span class="o">,</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
+<span class="kn">from</span> <span class="nn">openpyxl</span> <span class="kn">import</span> <span class="n">Workbook</span><span class="p">,</span> <span class="n">load_workbook</span>
+<span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SeqIO</span><span class="p">,</span> <span class="n">Entrez</span><span class="p">,</span> <span class="n">Phylo</span>
+<span class="kn">from</span> <span class="nn">Bio.SeqRecord</span> <span class="kn">import</span> <span class="n">SeqRecord</span>
+<span class="kn">import</span> <span class="nn">gseapy</span> <span class="k">as</span> <span class="nn">gp</span>
+<span class="kn">from</span> <span class="nn">bioservices</span> <span class="kn">import</span> <span class="n">UniProt</span>
+
+<span class="n">CODE_PATH</span> <span class="o">=</span> <span class="s2">&quot;/home/wwd/codebox/ODT-main/&quot;</span>
+<span class="k">if</span> <span class="n">CODE_PATH</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">src.visualize</span> <span class="kn">import</span> <span class="n">get_taxonomy</span><span class="p">,</span> <span class="n">build_phylogenetic_tree3</span>
+</pre></div>
+</div>
+</div>
+<section id="Gene-Sequence-Extraction">
+<h2>Gene Sequence Extraction<a class="headerlink" href="#Gene-Sequence-Extraction" title="Permalink to this heading">¶</a></h2>
+<p>The first stage extracts nucleotide sequences for candidate regeneration genes from the planarian reference genome. <code class="docutils literal notranslate"><span class="pre">geneSelect()</span></code> reads the genome FASTA, builds an in-memory dictionary mapping gene identifiers to sequences, and writes the selected genes into smaller FASTA files suitable for batch BLAST submission. <code class="docutils literal notranslate"><span class="pre">getGene()</span></code> parses the Excel spreadsheet mapping SMESG identifiers to SMED transcript IDs and returns a deduplicated gene list. <code class="docutils literal notranslate"><span class="pre">getFiles()</span></code> is a thin directory-traversal
+utility used throughout the notebook to aggregate output files from staged pipeline runs.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">geneSelect</span><span class="p">(</span><span class="n">gene_list</span><span class="p">,</span> <span class="n">fa_path</span><span class="o">=</span><span class="s1">&#39;./gene_data/genome.fa&#39;</span><span class="p">,</span> <span class="n">type_str</span><span class="o">=</span><span class="s1">&#39;candidate_genes&#39;</span><span class="p">,</span> <span class="n">gene_length</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract candidate gene sequences from the planarian genome FASTA and</span>
+<span class="sd">    write them into smaller batch FASTA files for BLAST submission.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="s1">&#39;genome.fa&#39;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">fa_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="n">gene_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">fa_data</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;&gt;&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">gene_name</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">gene_dict</span><span class="p">[</span><span class="n">gene_name</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">gene_dict</span><span class="p">[</span><span class="n">gene_name</span><span class="p">]</span> <span class="o">+=</span> <span class="n">data</span>
+
+    <span class="n">line_length</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">gene_list</span><span class="p">),</span> <span class="n">gene_length</span><span class="p">):</span>
+        <span class="n">batch</span> <span class="o">=</span> <span class="n">gene_list</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">gene_length</span><span class="p">]</span>
+        <span class="n">out_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">type_str</span><span class="si">}{</span><span class="n">i</span><span class="si">}</span><span class="s1">.fa&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">gene</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">batch</span><span class="p">):</span>
+                <span class="n">seq</span> <span class="o">=</span> <span class="n">gene_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">gene</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&gt;</span><span class="si">{</span><span class="n">gene</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">),</span> <span class="n">line_length</span><span class="p">):</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">seq</span><span class="p">[</span><span class="n">k</span><span class="p">:</span><span class="n">k</span> <span class="o">+</span> <span class="n">line_length</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">getGene</span><span class="p">(</span><span class="n">gene_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse the GenesWithScoresMapped spreadsheet and return a deduplicated</span>
+<span class="sd">    list of SMED transcript identifiers for all candidate regeneration genes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">gene_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">gene_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="s1">&#39;GenesWithScoresMapped.xlsx&#39;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">gene_path</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;Sheet&#39;</span><span class="p">)</span>
+    <span class="n">gene_list</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;smed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">gene_list2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">gene</span> <span class="ow">in</span> <span class="n">gene_list</span><span class="p">:</span>
+        <span class="n">gene</span> <span class="o">=</span> <span class="n">gene</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">gene</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">):</span>
+            <span class="n">gene_list2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">gene_list2</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">getFiles</span><span class="p">(</span><span class="n">target_dir</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Recursively collect absolute paths of all files under a directory.&quot;&quot;&quot;</span>
+    <span class="n">file_paths</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">target_dir</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="n">file_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">file_paths</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="BLAST-Alignment-Parsing">
+<h2>BLAST Alignment Parsing<a class="headerlink" href="#BLAST-Alignment-Parsing" title="Permalink to this heading">¶</a></h2>
+<p>BLAST results are parsed from two complementary output formats. The alignment text file (produced by <code class="docutils literal notranslate"><span class="pre">Align_data_read_names</span></code>) is scanned for query identifiers that produced at least one significant hit, yielding a coarse filter for successfully mapped genes. The finer-grained <code class="docutils literal notranslate"><span class="pre">Align_data_extract</span></code> function reads the structured CSV outputs — specifically the HitTable and Descriptions files — and consolidates them into a unified record per accession. Records passing the dual threshold of at
+least 40 % sequence identity and 50 % query coverage are retained for downstream analysis; the remainder are discarded to reduce noise from spurious low-quality matches.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Align_data_read_names</span><span class="p">(</span><span class="n">Align_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Scan a BLAST alignment text file and return the set of query gene</span>
+<span class="sd">    identifiers that yielded at least one significant alignment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">Align_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">Align_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="s1">&#39;RCCABKUX013-Alignment0.txt&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">Align_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="n">gene_data_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">smed_id</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+    <span class="n">align_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">description_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">data_str</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">data_str</span> <span class="o">=</span> <span class="n">data_str</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">data_str</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="s1">&#39;Query #&#39;</span> <span class="ow">in</span> <span class="n">data_str</span><span class="p">:</span>
+            <span class="n">smed_id</span> <span class="o">=</span> <span class="n">data_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="s1">&#39;Sequences producing significant alignments:&#39;</span> <span class="ow">in</span> <span class="n">data_str</span><span class="p">:</span>
+            <span class="n">align_id</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="s1">&#39;Description&#39;</span> <span class="ow">in</span> <span class="n">data_str</span> <span class="ow">and</span> <span class="s1">&#39;Scientific&#39;</span> <span class="ow">in</span> <span class="n">data_str</span><span class="p">:</span>
+            <span class="n">description_id</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">align_id</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">description_id</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">gene_data_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">smed_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;Alignments:&#39;</span> <span class="ow">in</span> <span class="n">data_str</span><span class="p">:</span>
+            <span class="n">align_id</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">description_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">gene_data_list</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">Align_data_extract</span><span class="p">(</span><span class="n">result_files</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse BLAST HitTable and Descriptions CSV files, merging them into a</span>
+<span class="sd">    unified record per accession. Records passing the 40 % identity and 50 %</span>
+<span class="sd">    query coverage thresholds are written to ``align_result_filtered.xlsx``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">file_id_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">result_files</span><span class="p">:</span>
+        <span class="n">basename</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">file_id_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">basename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">file_id_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">file_id_list</span><span class="p">))</span>
+
+    <span class="n">Align_data_result_all</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">index_id</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;Query ID&#39;</span><span class="p">,</span> <span class="s1">&#39;Accession ID&#39;</span><span class="p">,</span> <span class="s1">&#39;% Identity (Per. Ident)&#39;</span><span class="p">,</span> <span class="s1">&#39;Alignment Length&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Mismatch Count&#39;</span><span class="p">,</span> <span class="s1">&#39;Gap Openings&#39;</span><span class="p">,</span> <span class="s1">&#39;Query Start&#39;</span><span class="p">,</span> <span class="s1">&#39;Query End&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Subject Start&#39;</span><span class="p">,</span> <span class="s1">&#39;Subject End&#39;</span><span class="p">,</span> <span class="s1">&#39;E-value&#39;</span><span class="p">,</span> <span class="s1">&#39;Bit Score&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Query Coverage&#39;</span><span class="p">,</span> <span class="s1">&#39;Frame&#39;</span><span class="p">,</span> <span class="s1">&#39;Additional Column&#39;</span>
+    <span class="p">]</span>
+    <span class="n">drop_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">file_id</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">file_id_list</span><span class="p">):</span>
+        <span class="n">Align_data_result</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">hit_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">file_id</span><span class="si">}</span><span class="s1">-Alignment-HitTable.csv&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">hit_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="n">smed_align_result_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">data_list</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">data_list</span> <span class="o">=</span> <span class="n">data_list</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">data_list</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">data_list</span> <span class="o">=</span> <span class="n">data_list</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+            <span class="n">accession_id</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="n">index_id</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;Accession ID&#39;</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">accession_id</span> <span class="ow">in</span> <span class="n">smed_align_result_dict</span>
+                    <span class="ow">and</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">smed_align_result_dict</span><span class="p">[</span><span class="n">accession_id</span><span class="p">]):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">accession_id</span><span class="si">}</span><span class="s1"> dropped&#39;</span><span class="p">)</span>
+                <span class="n">smed_align_result_dict</span><span class="p">[</span><span class="n">accession_id</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">drop_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">accession_id</span><span class="p">,</span> <span class="n">smed_align_result_dict</span><span class="p">[</span><span class="n">accession_id</span><span class="p">]])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">Align_data_result</span><span class="p">[</span><span class="n">accession_id</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">index_id</span><span class="p">,</span> <span class="n">data_list</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">accession_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">smed_align_result_dict</span><span class="p">:</span>
+                    <span class="n">smed_align_result_dict</span><span class="p">[</span><span class="n">accession_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">data_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
+        <span class="n">desc_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">file_id</span><span class="si">}</span><span class="s1">-Alignment-Descriptions.csv&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">desc_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="n">data_description_ids</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="n">data_description_ids</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;query_str&#39;</span>
+        <span class="n">data_description_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Accession&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">data_list</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">data_list</span> <span class="o">=</span> <span class="n">data_list</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">data_list</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">data_list</span><span class="p">))</span>
+            <span class="n">parsed_data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">reader</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">parsed_data</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1">&#39;</span><span class="p">]:</span>
+                <span class="k">continue</span>
+            <span class="n">Accession_id</span> <span class="o">=</span> <span class="n">parsed_data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s1">&#39;RJ31FHCX013-ALIGNMENT-CSV&#39;</span> <span class="ow">in</span> <span class="n">Accession_id</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">Accession_id</span> <span class="o">=</span> <span class="n">Accession_id</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">)</span>
+            <span class="n">parsed_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Accession_id</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">data_description_ids</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">Accession_id</span> <span class="ow">in</span> <span class="n">Align_data_result</span><span class="p">:</span>
+                    <span class="n">Align_data_result</span><span class="p">[</span><span class="n">Accession_id</span><span class="p">][</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">parsed_data</span><span class="p">[</span><span class="n">data_description_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">item</span><span class="p">)]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">Align_data_result</span><span class="p">[</span><span class="n">Accession_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+                    <span class="n">Align_data_result</span><span class="p">[</span><span class="n">Accession_id</span><span class="p">][</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">parsed_data</span><span class="p">[</span><span class="n">data_description_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">item</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="n">Accession_id</span> <span class="ow">in</span> <span class="n">Align_data_result</span><span class="p">:</span>
+                <span class="n">Align_data_result_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Align_data_result</span><span class="p">[</span><span class="n">Accession_id</span><span class="p">])</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total alignments parsed: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">Align_data_result_all</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">drop_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="s1">&#39;drop_all.txt&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">drop_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">drop_list</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="s1">&#39;  &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">Align_data_result_all</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">key_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">Align_data_result_all</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key_list</span><span class="p">)</span>
+    <span class="n">protein_ids</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">Align_data_result_all</span><span class="p">:</span>
+        <span class="n">data_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key_id</span><span class="p">,</span> <span class="s1">&#39;NA&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">key_id</span> <span class="ow">in</span> <span class="n">key_list</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Per. ident&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="mi">40</span> <span class="ow">and</span> <span class="nb">float</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Query Cover&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="mi">50</span><span class="p">:</span>
+            <span class="n">ws</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span>
+            <span class="n">protein_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;Accession&#39;</span><span class="p">])</span>
+    <span class="n">wb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="s1">&#39;align_result_filtered.xlsx&#39;</span><span class="p">))</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="s1">&#39;protein.pkl&#39;</span><span class="p">),</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">protein_ids</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Protein-Sequence-Retrieval-and-GenBank-Export">
+<h2>Protein Sequence Retrieval and GenBank Export<a class="headerlink" href="#Protein-Sequence-Retrieval-and-GenBank-Export" title="Permalink to this heading">¶</a></h2>
+<p>Filtered protein accessions are fetched from NCBI via the Entrez API. <code class="docutils literal notranslate"><span class="pre">make_protein_genebank()</span></code> retrieves the full GenBank record for each accession and appends it to a cumulative GenBank file if a CDS feature is present. <code class="docutils literal notranslate"><span class="pre">makeFASTA()</span></code> subsequently extracts either the translated protein sequence (from the <code class="docutils literal notranslate"><span class="pre">translation</span></code> qualifier) or the underlying DNA coding sequence from each CDS feature, writing the results to a multi-entry FASTA file for downstream sequence analysis.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_protein_genebank</span><span class="p">(</span><span class="n">protein_ids</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fetch GenBank records for a list of protein accessions via NCBI Entrez</span>
+<span class="sd">    and append those containing CDS features to a cumulative GenBank file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">output_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">output_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="s1">&#39;protein_CDS.gb&#39;</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+    <span class="k">for</span> <span class="n">protein_id</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">protein_ids</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">efetch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s1">&#39;protein&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">protein_id</span><span class="p">,</span> <span class="n">rettype</span><span class="o">=</span><span class="s1">&#39;gb&#39;</span><span class="p">,</span> <span class="n">retmode</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
+            <span class="n">record</span> <span class="o">=</span> <span class="n">handle</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;CDS&#39;</span> <span class="ow">in</span> <span class="n">record</span><span class="p">:</span>
+                <span class="n">record_io</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+                <span class="n">parsed_record</span> <span class="o">=</span> <span class="n">SeqIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">record_io</span><span class="p">,</span> <span class="s1">&#39;genbank&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">parsed_record</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">gb_out</span><span class="p">:</span>
+                        <span class="n">gb_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to fetch </span><span class="si">{</span><span class="n">protein_id</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">makeFASTA</span><span class="p">(</span><span class="n">gb_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract protein or CDS sequences from a GenBank file and write them</span>
+<span class="sd">    to a multi-entry FASTA file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">gb_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">gb_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="s1">&#39;protein_CDS.gb&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">output_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">output_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="s1">&#39;protein_sequences.fasta&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fasta_out</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">gb_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">SeqIO</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="s1">&#39;genbank&#39;</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">record</span><span class="o">.</span><span class="n">features</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">feature</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;CDS&#39;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="s1">&#39;translation&#39;</span> <span class="ow">in</span> <span class="n">feature</span><span class="o">.</span><span class="n">qualifiers</span><span class="p">:</span>
+                            <span class="n">protein_seq</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">qualifiers</span><span class="p">[</span><span class="s1">&#39;translation&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                            <span class="k">if</span> <span class="n">protein_seq</span><span class="p">:</span>
+                                <span class="n">protein_record</span> <span class="o">=</span> <span class="n">SeqRecord</span><span class="p">(</span><span class="n">protein_seq</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">record</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">feature</span><span class="o">.</span><span class="n">location</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                                <span class="n">SeqIO</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">protein_record</span><span class="p">,</span> <span class="n">fasta_out</span><span class="p">,</span> <span class="s1">&#39;fasta&#39;</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">dna_seq</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">seq</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">dna_seq</span><span class="p">:</span>
+                                <span class="n">dna_record</span> <span class="o">=</span> <span class="n">SeqRecord</span><span class="p">(</span><span class="n">dna_seq</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">record</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">feature</span><span class="o">.</span><span class="n">location</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                                <span class="n">SeqIO</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">dna_record</span><span class="p">,</span> <span class="n">fasta_out</span><span class="p">,</span> <span class="s1">&#39;fasta&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Species-Identification-and-Taxonomic-Classification">
+<h2>Species Identification and Taxonomic Classification<a class="headerlink" href="#Species-Identification-and-Taxonomic-Classification" title="Permalink to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">findAllSpecies()</span></code> parses the cumulative GenBank file, extracting the organism annotation and accession identifier from each record and building a mapping from species names to their associated protein accessions. <code class="docutils literal notranslate"><span class="pre">find_species_taxonomy()</span></code> then queries the NCBI Taxonomy database via <code class="docutils literal notranslate"><span class="pre">get_taxonomy()</span></code> for each unique species, extracting the higher-level taxonomic lineage and grouping species into broad clades (e.g., snakes, salamanders, ray-finned fishes). This taxonomic grouping forms the
+backbone of the phylogenetic tree and the cross-species comparative analyses that follow.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">findAllSpecies</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse a GenBank file and return a list of unique species and a dict</span>
+<span class="sd">    mapping each species to its associated protein accessions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">file_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="s1">&#39;protein_CDS.gb&#39;</span><span class="p">)</span>
+    <span class="n">species_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">species_protein_list</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">SeqIO</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;genbank&#39;</span><span class="p">):</span>
+        <span class="n">species</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;organism&#39;</span><span class="p">,</span> <span class="s1">&#39;Unknown&#39;</span><span class="p">)</span>
+        <span class="n">species_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">species</span><span class="p">)</span>
+        <span class="n">accession</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">id</span>
+        <span class="n">species_protein_list</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">species</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accession</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">species_list</span><span class="p">)),</span> <span class="n">species_protein_list</span>
+
+
+<span class="k">def</span> <span class="nf">find_species_taxonomy</span><span class="p">(</span><span class="n">species_list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Query NCBI Taxonomy for each species and group them by higher-level</span>
+<span class="sd">    taxonomic clade.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">species_taxonomy</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">species</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">species_list</span><span class="p">):</span>
+        <span class="n">species_taxonomy</span><span class="p">[</span><span class="n">species</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_taxonomy</span><span class="p">(</span><span class="n">species</span><span class="p">)</span>
+    <span class="n">taxonomy_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">species</span><span class="p">,</span> <span class="n">taxonomy</span> <span class="ow">in</span> <span class="n">species_taxonomy</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">clade</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;(&#39;</span> <span class="ow">in</span> <span class="n">taxonomy</span> <span class="k">else</span> <span class="n">taxonomy</span>
+        <span class="n">taxonomy_dict</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">clade</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">species</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Taxonomic groups identified: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">taxonomy_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">taxonomy_dict</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Phylogenetic-Tree-and-Cross-Species-Visualisation">
+<h2>Phylogenetic Tree and Cross-Species Visualisation<a class="headerlink" href="#Phylogenetic-Tree-and-Cross-Species-Visualisation" title="Permalink to this heading">¶</a></h2>
+<p>The remaining utility functions construct the visual and structural outputs of the cross-species analysis. <code class="docutils literal notranslate"><span class="pre">get_species_groups_dict()</span></code> loads the manually curated species-to-clade edge table. <code class="docutils literal notranslate"><span class="pre">make_echarts_code()</span></code> assembles a hierarchical tree structure from these edges and serialises it as JSON for interactive visualisation. <code class="docutils literal notranslate"><span class="pre">makeBox_species_ident()</span></code> produces a box plot of BLAST percent identity values stratified by taxonomic group, revealing which clades harbour the strongest sequence
+conservation with planarian regeneration genes. <code class="docutils literal notranslate"><span class="pre">analyse_per_identBygenes()</span></code> links SMESG-level scores with SMED-level alignment data for per-gene visualisation. <code class="docutils literal notranslate"><span class="pre">makeKnowledgeGraph()</span></code> integrates all entities — candidate genes, SMED transcripts, matched proteins, host species, and taxonomic clades — into a unified knowledge graph exported as a set of CSV node and edge tables for import into graph databases or network analysis tools.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_species_groups_dict</span><span class="p">(</span><span class="n">edge_csv_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load the species-to-taxonomic-group edge mapping from a CSV file.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">edge_csv_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">edge_csv_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="s1">&#39;edges.csv&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">edge_csv_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">edge_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="n">species_groups_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edge_data</span><span class="p">:</span>
+        <span class="n">edge</span> <span class="o">=</span> <span class="n">edge</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="n">species_groups_dict</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">species_groups_dict</span>
+
+
+<span class="k">def</span> <span class="nf">make_echarts_code</span><span class="p">(</span><span class="n">species_protein_list</span><span class="p">,</span> <span class="n">edge_csv_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a hierarchical tree of species and taxonomic groups from edge</span>
+<span class="sd">    data, annotated with protein counts per node, and serialise as JSON.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">edge_csv_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">edge_csv_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="s1">&#39;edges.csv&#39;</span><span class="p">)</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">edge_csv_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">edge_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">edge_data</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+
+    <span class="n">node_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;root&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="s1">&#39;children&#39;</span><span class="p">:</span> <span class="p">[]}}</span>
+    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">edges</span><span class="p">):</span>
+        <span class="n">source</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">source</span> <span class="o">==</span> <span class="s1">&#39;lizards&#39;</span> <span class="ow">or</span> <span class="n">target</span> <span class="o">==</span> <span class="s1">&#39;lizards&#39;</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">source</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node_map</span><span class="p">:</span>
+            <span class="n">node_map</span><span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">source</span><span class="p">,</span> <span class="s1">&#39;children&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="k">if</span> <span class="n">target</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node_map</span><span class="p">:</span>
+            <span class="n">node_map</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">target</span><span class="p">}</span>
+        <span class="k">if</span> <span class="s1">&#39;&amp;&#39;</span> <span class="ow">in</span> <span class="n">target</span> <span class="ow">and</span> <span class="n">source</span> <span class="o">!=</span> <span class="s1">&#39;root&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">node_map</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node_map</span><span class="p">[</span><span class="s1">&#39;root&#39;</span><span class="p">][</span><span class="s1">&#39;children&#39;</span><span class="p">]</span>
+                    <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">node_map</span><span class="p">[</span><span class="n">target</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;children&#39;</span><span class="p">,</span> <span class="p">[]))</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">node_map</span><span class="p">[</span><span class="s1">&#39;root&#39;</span><span class="p">][</span><span class="s1">&#39;children&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_map</span><span class="p">[</span><span class="n">target</span><span class="p">])</span>
+            <span class="k">continue</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">node_map</span><span class="p">[</span><span class="n">source</span><span class="p">][</span><span class="s1">&#39;children&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_map</span><span class="p">[</span><span class="n">target</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">species_protein_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">node_map</span><span class="p">:</span>
+            <span class="n">node_map</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">species_protein_list</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">getvalue</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">n</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">species_protein_list</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">n</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">getvalue</span><span class="p">(</span><span class="n">child</span><span class="p">)</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">n</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;children&#39;</span><span class="p">,</span> <span class="p">[]))</span>
+
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">node_map</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">node_map</span> <span class="ow">and</span> <span class="s1">&#39;children&#39;</span> <span class="ow">in</span> <span class="n">node_map</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+            <span class="n">node_map</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">getvalue</span><span class="p">(</span><span class="n">node_map</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+
+    <span class="n">sorted_node_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">node_map</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))}</span>
+    <span class="n">sorted_node_map</span><span class="p">[</span><span class="s1">&#39;root&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;All_Proteins&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">sorted_node_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="p">{})))</span>
+
+
+<span class="k">def</span> <span class="nf">makeBox_species_ident</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a box plot of BLAST percent identity values stratified by</span>
+<span class="sd">    taxonomic group.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">species_groups_dict</span> <span class="o">=</span> <span class="n">get_species_groups_dict</span><span class="p">()</span>
+    <span class="n">workbook</span> <span class="o">=</span> <span class="n">load_workbook</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="s1">&#39;align_result.xlsx&#39;</span><span class="p">))</span>
+    <span class="n">sheet</span> <span class="o">=</span> <span class="n">workbook</span><span class="p">[</span><span class="n">workbook</span><span class="o">.</span><span class="n">sheetnames</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="n">group_per_idents</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">sheet</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">(</span><span class="n">values_only</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">row_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">row_list</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Scientific Name&#39;</span> <span class="ow">or</span> <span class="n">row_list</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">species_groups_dict</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="n">species_groups_dict</span><span class="p">[</span><span class="n">row_list</span><span class="p">[</span><span class="mi">16</span><span class="p">]]</span>
+        <span class="n">group_per_idents</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">row_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+
+    <span class="n">group_order</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">group_per_idents</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">labels</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">group</span><span class="p">,</span> <span class="n">value_list</span> <span class="ow">in</span> <span class="n">group_per_idents</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">value_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value_list</span> <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">45</span><span class="p">]</span>
+        <span class="n">labels</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">group</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">value_list</span><span class="p">))</span>
+        <span class="n">values</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">value_list</span><span class="p">)</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Group&#39;</span><span class="p">:</span> <span class="n">labels</span><span class="p">,</span> <span class="s1">&#39;Value&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)})</span>
+    <span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;Set3&#39;</span><span class="p">)</span>
+    <span class="n">palette</span> <span class="o">=</span> <span class="p">{</span><span class="n">group</span><span class="p">:</span> <span class="n">cmap</span><span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">group_order</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">group_order</span><span class="p">)}</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Group&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Value&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">group_order</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="n">palette</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">handles</span> <span class="o">=</span> <span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">markerfacecolor</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span> <span class="k">for</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">palette</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">handles</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">group_order</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.02</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Taxonomy Groups&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Per.Ident Value&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">spine</span> <span class="ow">in</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">spines</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">spine</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;Taxonomy-Based-Protein-Per-Ident-Distribution.png&#39;</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">analyse_per_identBygenes</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Merge SMESG-level gene scores with SMED-level BLAST alignment data</span>
+<span class="sd">    for per-gene percent identity visualisation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">species_groups_dict</span> <span class="o">=</span> <span class="n">get_species_groups_dict</span><span class="p">()</span>
+    <span class="n">workbook</span> <span class="o">=</span> <span class="n">load_workbook</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="s1">&#39;align_result.xlsx&#39;</span><span class="p">))</span>
+    <span class="n">sheet</span> <span class="o">=</span> <span class="n">workbook</span><span class="p">[</span><span class="n">workbook</span><span class="o">.</span><span class="n">sheetnames</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="n">smed_align_result</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">sheet</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">(</span><span class="n">values_only</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">row_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">row_list</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Scientific Name&#39;</span> <span class="ow">or</span> <span class="n">row_list</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">species_groups_dict</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">smed_align_result</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">row_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;Accession_id&#39;</span><span class="p">:</span> <span class="n">row_list</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;Per.Ident&#39;</span><span class="p">:</span> <span class="n">row_list</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+            <span class="s1">&#39;species&#39;</span><span class="p">:</span> <span class="n">row_list</span><span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="s1">&#39;group&#39;</span><span class="p">:</span> <span class="n">species_groups_dict</span><span class="p">[</span><span class="n">row_list</span><span class="p">[</span><span class="mi">16</span><span class="p">]]</span>
+        <span class="p">})</span>
+    <span class="n">workbook</span> <span class="o">=</span> <span class="n">load_workbook</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="s1">&#39;GenesWithScoresMapped.xlsx&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">smed_align_result</span>
+
+
+<span class="k">def</span> <span class="nf">makeKnowledgeGraph</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Integrate candidate genes, SMED transcripts, matched proteins, host</span>
+<span class="sd">    species, and taxonomic clades into a unified knowledge graph exported as</span>
+<span class="sd">    CSV node and edge tables.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="s1">&#39;GenesWithScoresMapped.xlsx&#39;</span><span class="p">),</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;Sheet&#39;</span><span class="p">)</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">data_filtered</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">columns</span><span class="p">[:</span><span class="mi">4</span><span class="p">]]</span>
+    <span class="n">gene_smed_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">candidate_genes</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">gene_dict</span> <span class="ow">in</span> <span class="n">data_filtered</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s1">&#39;records&#39;</span><span class="p">):</span>
+        <span class="n">gene_smed</span> <span class="o">=</span> <span class="n">gene_dict</span><span class="p">[</span><span class="s1">&#39;smed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;]&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="n">gene_dict</span><span class="p">[</span><span class="s1">&#39;smed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gene_smed</span>
+        <span class="n">candidate_genes</span><span class="p">[</span><span class="n">gene_dict</span><span class="p">[</span><span class="s1">&#39;Gene&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">gene_dict</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">smed</span> <span class="ow">in</span> <span class="n">gene_smed</span><span class="p">:</span>
+            <span class="n">gene_smed_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">gene_dict</span><span class="p">[</span><span class="s1">&#39;Gene&#39;</span><span class="p">],</span> <span class="s1">&#39;smed&#39;</span><span class="p">:</span> <span class="n">smed</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)})</span>
+
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">candidate_genes</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;candidate_genes.csv&#39;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">gene_smed_list</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_smeds_edge.csv&#39;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Knowledge graph exported to results/Blast_result/&#39;</span><span class="p">)</span>
+<br/><br/><br/></pre></div>
+</div>
+</div>
+</section>
+<section id="Execution">
+<h2>Execution<a class="headerlink" href="#Execution" title="Permalink to this heading">¶</a></h2>
+<p>The pipeline is executed in four sequential stages. Each stage loads its inputs from the output of the preceding stage, allowing intermediate results to be inspected and individual stages to be re-run independently.</p>
+<p><strong>Stage 1 — Species discovery and taxonomy.</strong> <code class="docutils literal notranslate"><span class="pre">findAllSpecies()</span></code> parses the cumulative GenBank file produced by the BLAST pipeline, extracting the set of unique source organisms and their associated protein accessions. <code class="docutils literal notranslate"><span class="pre">find_species_taxonomy()</span></code> then resolves each organism to its higher-level taxonomic clade via NCBI Taxonomy queries.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stage 1 — Discover species from GenBank records and classify taxonomically.</span>
+<span class="n">species_list</span><span class="p">,</span> <span class="n">species_protein_list</span> <span class="o">=</span> <span class="n">findAllSpecies</span><span class="p">()</span>
+<span class="n">taxonomy_dict</span> <span class="o">=</span> <span class="n">find_species_taxonomy</span><span class="p">(</span><span class="n">species_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+  0%|          | 0/50 [00:00&lt;?, ?it/s]/home/wwd/anaconda3/envs/geneformer/lib/python3.8/site-packages/Bio/Entrez/__init__.py:694: UserWarning:
+            Email address is not specified.
+
+            To make use of NCBI&#39;s E-utilities, NCBI requires you to specify your
+            email address with each request.  As an example, if your email address
+            is A.N.Other@example.com, you can specify it as follows:
+               from Bio import Entrez
+               Entrez.email = &#39;A.N.Other@example.com&#39;
+            In case of excessive usage of the E-utilities, NCBI will attempt to contact
+            a user at the email address provided before blocking access to the
+            E-utilities.
+  warnings.warn(
+100%|██████████| 50/50 [00:52&lt;00:00,  1.05s/it]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Taxonomic groups identified: [&#39;snakes&#39;, &#39;lizards &amp; snakes&#39;, &#39;ray-finned fishes&#39;, &#39;sea cucumbers&#39;, &#39;salamanders&#39;, &#39;frogs &amp; toads&#39;, &#39;flatworms&#39;, &#39;rodents&#39;, &#39;primates&#39;]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<p><strong>Stage 2 — Phylogenetic tree construction.</strong> Species counts are tabulated and <code class="docutils literal notranslate"><span class="pre">build_phylogenetic_tree3()</span></code> renders a directed acyclic graph of taxonomic relationships, with node sizes proportional to the number of matched proteins per species or clade.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stage 2 — Build and render the phylogenetic tree.</span>
+<span class="n">species_counts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">species_list</span><span class="p">))</span>
+<span class="n">build_phylogenetic_tree3</span><span class="p">(</span><span class="n">taxonomy_dict</span><span class="p">,</span> <span class="n">species_counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;snakes&#39;: (0.8941176470588236, 0.10196078431372549, 0.10980392156862745), &#39;lizards&#39;: (0.21568627450980393, 0.49411764705882355, 0.7215686274509804), &#39;ray-finned fishes&#39;: (0.30196078431372547, 0.6862745098039216, 0.2901960784313726), &#39;lizards &amp; snakes&#39;: (0.596078431372549, 0.3058823529411765, 0.6392156862745098), &#39;frogs&#39;: (1.0, 0.4980392156862745, 0.0), &#39;primates&#39;: (1.0, 1.0, 0.2), &#39;frogs &amp; toads&#39;: (0.6509803921568628, 0.33725490196078434, 0.1568627450980392), &#39;flatworms&#39;: (0.9686274509803922, 0.5058823529411764, 0.7490196078431373), &#39;sea cucumbers&#39;: (0.6, 0.6, 0.6), &#39;rodents&#39;: (0.8941176470588236, 0.10196078431372549, 0.10980392156862745), &#39;toads&#39;: (0.21568627450980393, 0.49411764705882355, 0.7215686274509804), &#39;salamanders&#39;: (0.30196078431372547, 0.6862745098039216, 0.2901960784313726), &#39;root&#39;: (0.596078431372549, 0.3058823529411765, 0.6392156862745098)}
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Figure size 1200x800 with 0 Axes&gt;
+</pre></div></div>
+</div>
+<p><strong>Stage 3 — Cross-species visualisation.</strong> <code class="docutils literal notranslate"><span class="pre">make_echarts_code()</span></code> serialises the species-to-clade hierarchy as interactive JSON. <code class="docutils literal notranslate"><span class="pre">makeBox_species_ident()</span></code> produces a box plot of BLAST percent identity stratified by taxonomic group, highlighting which clades exhibit the strongest sequence conservation with planarian regeneration genes. <code class="docutils literal notranslate"><span class="pre">make_line_box()</span></code> generates per-gene box plots of protein similarity scores.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stage 3 — Cross-species visualisation.</span>
+<span class="n">species_list</span><span class="p">,</span> <span class="n">species_protein_list</span> <span class="o">=</span> <span class="n">findAllSpecies</span><span class="p">(</span>
+    <span class="n">file_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;Blast_result&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_data2&#39;</span><span class="p">,</span> <span class="s1">&#39;protein_CDS.gb&#39;</span><span class="p">))</span>
+<span class="n">make_echarts_code</span><span class="p">(</span><span class="n">species_protein_list</span><span class="p">)</span>
+<span class="n">makeBox_species_ident</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#34;name&#34;: &#34;All_Proteins&#34;, &#34;children&#34;: [{&#34;name&#34;: &#34;primates&#34;, &#34;children&#34;: [{&#34;name&#34;: &#34;Homo sapiens&#34;, &#34;value&#34;: 450}], &#34;value&#34;: 450}, {&#34;name&#34;: &#34;rodents&#34;, &#34;children&#34;: [{&#34;name&#34;: &#34;Rattus norvegicus&#34;, &#34;value&#34;: 201}, {&#34;name&#34;: &#34;Mus musculus&#34;, &#34;value&#34;: 287}], &#34;value&#34;: 488}, {&#34;name&#34;: &#34;flatworms&#34;, &#34;children&#34;: [{&#34;name&#34;: &#34;Schmidtea mediterranea&#34;, &#34;value&#34;: 6}], &#34;value&#34;: 6}, {&#34;name&#34;: &#34;toads&#34;}, {&#34;name&#34;: &#34;frogs&#34;}, {&#34;name&#34;: &#34;frogs &amp; toads&#34;, &#34;children&#34;: [{&#34;name&#34;: &#34;Xenopus laevis&#34;, &#34;value&#34;: 238}], &#34;value&#34;: 238}, {&#34;name&#34;: &#34;salamanders&#34;, &#34;children&#34;: [{&#34;name&#34;: &#34;Pleurodeles waltl&#34;, &#34;value&#34;: 126}, {&#34;name&#34;: &#34;Ambystoma mexicanum&#34;, &#34;value&#34;: 99}, {&#34;name&#34;: &#34;Cynops orientalis&#34;, &#34;value&#34;: 3}], &#34;value&#34;: 228}, {&#34;name&#34;: &#34;sea cucumbers&#34;, &#34;children&#34;: [{&#34;name&#34;: &#34;Apostichopus japonicus&#34;, &#34;value&#34;: 19}, {&#34;name&#34;: &#34;Holothuria leucospilota&#34;, &#34;value&#34;: 32}], &#34;value&#34;: 51}, {&#34;name&#34;: &#34;ray-finned fishes&#34;, &#34;children&#34;: [{&#34;name&#34;: &#34;Oryzias melastigma&#34;, &#34;value&#34;: 162}, {&#34;name&#34;: &#34;Cololabis saira&#34;, &#34;value&#34;: 101}, {&#34;name&#34;: &#34;Danio rerio&#34;, &#34;value&#34;: 137}, {&#34;name&#34;: &#34;Oryzias javanicus&#34;, &#34;value&#34;: 51}, {&#34;name&#34;: &#34;Oryzias latipes&#34;, &#34;value&#34;: 139}], &#34;value&#34;: 590}, {&#34;name&#34;: &#34;lizards &amp; snakes&#34;, &#34;children&#34;: [{&#34;name&#34;: &#34;Podarcis muralis&#34;, &#34;value&#34;: 107}, {&#34;name&#34;: &#34;Phrynosoma platyrhinos&#34;, &#34;value&#34;: 29}, {&#34;name&#34;: &#34;Varanus komodoensis&#34;, &#34;value&#34;: 122}, {&#34;name&#34;: &#34;Zootoca vivipara&#34;, &#34;value&#34;: 52}, {&#34;name&#34;: &#34;Eublepharis macularius&#34;, &#34;value&#34;: 87}, {&#34;name&#34;: &#34;Podarcis lilfordi&#34;, &#34;value&#34;: 67}, {&#34;name&#34;: &#34;Rhineura floridana&#34;, &#34;value&#34;: 84}, {&#34;name&#34;: &#34;Sceloporus undulatus&#34;, &#34;value&#34;: 99}, {&#34;name&#34;: &#34;Elgaria multicarinata webbii&#34;, &#34;value&#34;: 68}, {&#34;name&#34;: &#34;Sphaerodactylus townsendi&#34;, &#34;value&#34;: 103}, {&#34;name&#34;: &#34;Lerista edwardsae&#34;, &#34;value&#34;: 52}, {&#34;name&#34;: &#34;Pogona vitticeps&#34;, &#34;value&#34;: 99}, {&#34;name&#34;: &#34;Phrynocephalus forsythii&#34;, &#34;value&#34;: 37}, {&#34;name&#34;: &#34;Heteronotia binoei&#34;, &#34;value&#34;: 78}, {&#34;name&#34;: &#34;Podarcis raffonei&#34;, &#34;value&#34;: 60}, {&#34;name&#34;: &#34;Anolis sagrei&#34;, &#34;value&#34;: 60}, {&#34;name&#34;: &#34;Lacerta agilis&#34;, &#34;value&#34;: 83}, {&#34;name&#34;: &#34;Euleptes europaea&#34;, &#34;value&#34;: 59}, {&#34;name&#34;: &#34;Tiliqua scincoides&#34;, &#34;value&#34;: 79}, {&#34;name&#34;: &#34;Gekko japonicus&#34;, &#34;value&#34;: 77}, {&#34;name&#34;: &#34;Anolis carolinensis&#34;, &#34;value&#34;: 108}, {&#34;name&#34;: &#34;Hemicordylus capensis&#34;, &#34;value&#34;: 162}], &#34;value&#34;: 1772}, {&#34;name&#34;: &#34;snakes&#34;, &#34;children&#34;: [{&#34;name&#34;: &#34;Candoia aspera&#34;, &#34;value&#34;: 76}, {&#34;name&#34;: &#34;Thamnophis elegans&#34;, &#34;value&#34;: 53}, {&#34;name&#34;: &#34;Ophiophagus hannah&#34;, &#34;value&#34;: 27}, {&#34;name&#34;: &#34;Pantherophis guttatus&#34;, &#34;value&#34;: 72}, {&#34;name&#34;: &#34;Notechis scutatus&#34;, &#34;value&#34;: 73}, {&#34;name&#34;: &#34;Python bivittatus&#34;, &#34;value&#34;: 83}, {&#34;name&#34;: &#34;Protobothrops mucrosquamatus&#34;, &#34;value&#34;: 47}, {&#34;name&#34;: &#34;Thamnophis sirtalis&#34;, &#34;value&#34;: 42}, {&#34;name&#34;: &#34;Ahaetulla prasina&#34;, &#34;value&#34;: 63}, {&#34;name&#34;: &#34;Crotalus adamanteus&#34;, &#34;value&#34;: 46}, {&#34;name&#34;: &#34;Pseudonaja textilis&#34;, &#34;value&#34;: 75}, {&#34;name&#34;: &#34;Naja naja&#34;, &#34;value&#34;: 25}, {&#34;name&#34;: &#34;Crotalus tigris&#34;, &#34;value&#34;: 97}], &#34;value&#34;: 779}], &#34;value&#34;: 4602}
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/tmp/ipykernel_3271618/2545488836.py:89: FutureWarning:
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(x=&#39;Group&#39;, y=&#39;Value&#39;, data=df, order=group_order, palette=palette)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Tutorious_3_ODT_Enables_Regeneration_Gene_Discovery_17_2.png" src="_images/Tutorious_3_ODT_Enables_Regeneration_Gene_Discovery_17_2.png" />
+</div>
+</div>
+<p><strong>Stage 4 — Knowledge graph assembly.</strong> <code class="docutils literal notranslate"><span class="pre">makeKnowledgeGraph()</span></code> integrates all entities — candidate regeneration genes, their SMED transcripts, matched homologous proteins, host species, and taxonomic clades — into a unified multi-entity graph exported as CSV node and edge tables for downstream network analysis or import into graph database systems.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stage 4 — Assemble and export the multi-entity knowledge graph.</span>
+<span class="n">makeKnowledgeGraph</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Knowledge graph exported to results/Blast_result/
+</pre></div></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Tutorious%202%20PFM-ST%20Enables%203D%20Digitization%20of%20Planarians.html" class="btn btn-neutral float-left" title="Step: Load 3D dataset files" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Tutorious%204%20Gene%20Regulatory%20Network%20Construction%20and%20Visualization.html" class="btn btn-neutral float-right" title="Gene Regulatory Network Inference via MLP-Based Edge Prediction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Wendi Wang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
