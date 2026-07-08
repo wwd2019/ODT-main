@@ -215,7 +215,6 @@ rfc3339-validator==0.1.4
 rfc3986-validator==0.1.1
 rich==13.9.4
 rpds-py==0.13.1
-rpy2==3.5.15
 rsa==4.9
 safetensors==0.4.0
 scanpy==1.9.8
