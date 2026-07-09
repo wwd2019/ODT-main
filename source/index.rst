@@ -15,12 +15,3 @@ Welcome to ODT-main's documentation!
    Tutorial 3 ODT Enables Regeneration Gene Discovery
    Tutorial 4 Gene Regulatory Network Construction and Visualization
    Tutorial 5 SquiDiff Enables Virtual Section Reconstruction of Planarians
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
