@@ -54,6 +54,7 @@ gene expression profiles at unobserved intermediate timepoints. The resulting
 raw and simulated latent spaces are interrogated through t-SNE and diffusion
 pseudotime projections, pairwise cell-type distance dynamics, river plots,
 and dynamic network graphs.
+
 ---
 ## Installation
 
